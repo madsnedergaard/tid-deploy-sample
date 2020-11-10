@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { Header } from "./Header";
 
-function App() {
+const Option = ({ name, selected, onSelect }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+        id={name}
+        type="checkbox"
+        checked={selected === name}
+        onChange={onSelect}
+      />
+      <label for={name}>{name}</label>
     </div>
   );
-}
+};
 
-export default App;
+const RadioCheckboxes = () => {
+  const [selected, setSelected] = useState();
+
+  const handleChange = (event) => {
+    setSelected(event.target.id);
+  };
+
+  return (
+    <div>
+      <Header />
+      Pick an option:
+      <div className="options">
+        <Option name="Vegan" onSelect={handleChange} selected={selected} />
+        <Option name="Vegetarian" onSelect={handleChange} selected={selected} />
+        <Option name="Omnivore" onSelect={handleChange} selected={selected} />
+      </div>
+      <h3>User picked: {selected}</h3>
+    </div>
+  );
+};
+
+export default RadioCheckboxes;
